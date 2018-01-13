@@ -7,11 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand main-title" href="{{ route('home') }}">FiSO</a>
+      <a class="navbar-brand main-title" href="{{ route('home') }}">
+        <img src="{{ asset('img/logo.png') }}" alt="">
+      </a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <p class="navbar-text">My Laravel Store</p>
+      <p class="navbar-text">Tienda Gomedical</p>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ route('cart-show') }}"><i class="fa fa-shopping-cart"></i></a></li>
         <li><a href="#">Conocenos</a></li>
