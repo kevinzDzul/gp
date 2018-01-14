@@ -1,31 +1,46 @@
 body
 {
-	background: orange;
-	font-family: 'Poiret One', cursive;
+	background-color: #f2f2f2;
+	font-family: 'Arial';
 }
 
 h1,h2,h3,h4,h5,h6
 {
-	font-family: 'Lobster Two', cursive;
+	font-family: 'Arial';
 }
 
 /* Nav ----------*/
 .main-title
 {
-	color: orange !important;
 	font-size: 26px;
+	margin-bottom: 10px;
 }
 
 /* Footer -------*/
 footer
 {
-	background: #222;
+	background: #333;
 	text-align: center;
 }
 
 footer p
 {
 	text-align: justify;
+	color: white;
+}
+
+.container-footer {
+	display: flex;
+	justify-content: space-around;
+}
+
+.item-footer {
+	display: flex;
+	align-items: center;
+}
+
+footer h3 {
+	color: 	white;
 }
 
 ul.redes li
@@ -35,16 +50,7 @@ ul.redes li
 
 ul.redes li a
 {
-	color: orange;
-}
-
-.avatar
-{
-	border: 5px solid orange;
-	border-radius: 50%;
-	float: left;
-	height: 100px;
-	width: 100px;
+	color: white;
 }
 
 /* Catalogo -------------*/
@@ -91,6 +97,7 @@ transition: all 0.3s ease-in-out;
 .navbar
 {
 	margin-bottom: 0;
+	background-color: white;
 }
 
 /* Carrito -----------*/

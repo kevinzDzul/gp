@@ -3,27 +3,20 @@
   <ol class="carousel-indicators">
     <li data-target="#slider" data-slide-to="0" class="active"></li>
     <li data-target="#slider" data-slide-to="1"></li>
-    <li data-target="#slider" data-slide-to="2"></li>
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="http://www.5sos.com.au/store/skin/frontend/default/5SOS/images/5sos_banner_retry_AU.JPG" alt="slide1">
+        <img src="{{ asset('img/slider/slider2.jpg') }}" alt="slide1">
         <div class="carousel-caption">
-          Slide 1
+          Productos de alta calidad
         </div>
       </div>
       <div class="item">
-        <img src="https://www.paradisowinkel.nl/media/wysiwyg/homepage/HOME1000000014.3.png" alt="slide2">
+        <img src="{{ asset('img/slider/slider2.jpg') }}" alt="slide2">
         <div class="carousel-caption">
-          Slide 2
-        </div>
-      </div>
-      <div class="item">
-        <img src="http://theelectriczombie.com/blog14/rcshirts.jpg" alt="slide3">
-        <div class="carousel-caption">
-          Slide 3
+          Productos de alta calidad
         </div>
       </div>
   </div>
