@@ -19,7 +19,7 @@
                         @include('admin.partials.errors')
                     @endif
                     
-                    {!! Form::model($product, array('route' => array('admin.product.update', $product->slug))) !!}
+                    {!! Form::model($product, array('route' => array('admin.product.update', $product->slug),'files' => true)) !!}
                     
                         <input type="hidden" name="_method" value="PUT">
                     
@@ -90,9 +90,10 @@
                         
                         <div class="form-group">
                             <label for="image">Imagen:</label>
-                            
+
                             {!! 
-                                Form::text(
+                                Form::input(
+                                    'file',
                                     'image', 
                                     null, 
                                     array(

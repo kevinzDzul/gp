@@ -6,12 +6,24 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\SaveProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use App\Product;
 use App\Category;
 
 class ProductController extends Controller
 {
+
+    const PREFIX_FILE_NAME = "imgProduct";
+    const DEFAULT_FOLDER_IMAGE = "/images/imagesProduct/";
+    private $pathImages;
+
+    public function __construct()
+    {
+        $this->pathImages = public_path() . self::DEFAULT_FOLDER_IMAGE;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +32,11 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('id', 'desc')->paginate(5);
+
+        foreach ($products as $product){
+            $product->image = url(self::DEFAULT_FOLDER_IMAGE).'/'.$product->image;
+        }
+
         //dd($products);
         return view('admin.product.index', compact('products'));
     }
@@ -44,21 +61,31 @@ class ProductController extends Controller
      */
     public function store(SaveProductRequest $request)
     {
-        $data = [
-            'name'          => $request->get('name'),
-            'slug'          => str_slug($request->get('name')),
-            'description'   => $request->get('description'),
-            'extract'       => $request->get('extract'),
-            'price'         => $request->get('price'),
-            'image'         => $request->get('image'),
-            'visible'       => $request->has('visible') ? 1 : 0,
-            'category_id'   => $request->get('category_id')
-        ];
+        $file = $request->file('image');
 
-        $product = Product::create($data);
+        if($file != null) {
+            $fileName = self::PREFIX_FILE_NAME . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($this->pathImages, $fileName);
+
+            $data = [
+                'name'        => $request->get('name'),
+                'slug'        => str_slug($request->get('name')),
+                'description' => $request->get('description'),
+                'extract'     => $request->get('extract'),
+                'price'       => $request->get('price'),
+                'image'       => $fileName,
+                'visible'     => $request->has('visible') ? 1 : 0,
+                'category_id' => $request->get('category_id')
+            ];
+
+            $product = Product::create($data);
+
+        }else{
+            $product = false;
+        }
 
         $message = $product ? 'Producto agregado correctamente!' : 'El producto NO pudo agregarse!';
-        
+
         return redirect()->route('admin.product.index')->with('message', $message);
     }
 
@@ -93,16 +120,33 @@ class ProductController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(SaveProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
+
+        if($request->file('image') != null){
+
+            $file = $request->file('image');
+
+            $fileName = self::PREFIX_FILE_NAME . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($this->pathImages, $fileName);
+
+            File::delete( $this->pathImages. $product->image);
+
+            $nameFile = $fileName;
+
+        }else{
+            $nameFile = $product->image;
+        }
+
         $product->fill($request->all());
-        $product->slug = str_slug($request->get('name'));
+        $product->slug  = str_slug($request->get('name'));
+        $product->image = $nameFile;
         $product->visible = $request->has('visible') ? 1 : 0;
-        
+
         $updated = $product->save();
-        
+
         $message = $updated ? 'Producto actualizado correctamente!' : 'El Producto NO pudo actualizarse!';
-        
+
         return redirect()->route('admin.product.index')->with('message', $message);
     }
 
@@ -114,10 +158,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+
+        File::delete( $this->pathImages. $product->image);
         $deleted = $product->delete();
-        
+
         $message = $deleted ? 'Producto eliminado correctamente!' : 'El producto NO pudo eliminarse!';
-        
+
         return redirect()->route('admin.product.index')->with('message', $message);
     }
 }
