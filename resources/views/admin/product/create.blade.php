@@ -19,7 +19,7 @@
                         @include('admin.partials.errors')
                     @endif
                     
-                    {!! Form::open(['route'=>'admin.product.store']) !!}
+                    {!! Form::open(['route'=>'admin.product.store','files' => true]) !!}
                     
                         <div class="form-group">
                             <label class="control-label" for="category_id">Categoría</label>
@@ -88,9 +88,10 @@
                         
                         <div class="form-group">
                             <label for="image">Imagen:</label>
-                            
+
                             {!! 
-                                Form::text(
+                                Form::input(
+                                    'file',
                                     'image', 
                                     null, 
                                     array(
