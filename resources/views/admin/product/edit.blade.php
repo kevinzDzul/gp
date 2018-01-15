@@ -27,6 +27,11 @@
                             <label class="control-label" for="category_id">Categoría</label>
                             {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
                         </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="type_sale_id">Tipo de venta</label>
+                            {!! Form::select('type_sale_id', $type_sale, null, ['class' => 'form-control']) !!}
+                        </div>
         
                         <div class="form-group">
                             <label for="name">Nombre:</label>
@@ -108,10 +113,7 @@
                             <label for="visible">Visible:</label>
                             <input type="checkbox" name="visible" {{ $product->visible == 1 ? "checked='checked'" : '' }}>
                         </div>
-                
-                        
-                        
-                        
+
                         <div class="form-group">
                             {!! Form::submit('Actualizar', array('class'=>'btn btn-primary')) !!}
                             <a href="{{ route('admin.product.index') }}" class="btn btn-warning">Cancelar</a>

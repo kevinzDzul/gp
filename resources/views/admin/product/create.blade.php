@@ -25,6 +25,11 @@
                             <label class="control-label" for="category_id">Categoría</label>
                             {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
                         </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="type_sale_id">Tipo de venta</label>
+                            {!! Form::select('type_sale_id', $type_sale, null, ['class' => 'form-control']) !!}
+                        </div>
         
                         <div class="form-group">
                             <label for="name">Nombre:</label>

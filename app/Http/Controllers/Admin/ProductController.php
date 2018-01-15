@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Product;
 use App\Category;
+use App\TypeSale;
 
 class ProductController extends Controller
 {
@@ -37,7 +38,6 @@ class ProductController extends Controller
             $product->image = url(self::DEFAULT_FOLDER_IMAGE).'/'.$product->image;
         }
 
-        //dd($products);
         return view('admin.product.index', compact('products'));
     }
 
@@ -49,8 +49,11 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::orderBy('id', 'desc')->lists('name', 'id');
+        $type_sale = TypeSale::orderBy('id', 'desc')->lists('name', 'id');
+
+        //dd($type_sale);
         //dd($categories);
-        return view('admin.product.create', compact('categories'));
+        return view('admin.product.create', compact('categories','type_sale'));
     }
 
     /**
@@ -61,6 +64,7 @@ class ProductController extends Controller
      */
     public function store(SaveProductRequest $request)
     {
+        dd($request->all());
         $file = $request->file('image');
 
         if($file != null) {
@@ -74,6 +78,7 @@ class ProductController extends Controller
                 'extract'     => $request->get('extract'),
                 'price'       => $request->get('price'),
                 'image'       => $fileName,
+                'type_sale_id'=> $request->get('type_sale_id'),
                 'visible'     => $request->has('visible') ? 1 : 0,
                 'category_id' => $request->get('category_id')
             ];
@@ -109,8 +114,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::orderBy('id', 'desc')->lists('name', 'id');
+        $type_sale = TypeSale::orderBy('id', 'desc')->lists('name', 'id');
 
-        return view('admin.product.edit', compact('categories', 'product'));
+        return view('admin.product.edit', compact('categories', 'product','type_sale'));
     }
 
     /**
