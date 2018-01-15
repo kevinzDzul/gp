@@ -64,7 +64,6 @@ class ProductController extends Controller
      */
     public function store(SaveProductRequest $request)
     {
-        dd($request->all());
         $file = $request->file('image');
 
         if($file != null) {
