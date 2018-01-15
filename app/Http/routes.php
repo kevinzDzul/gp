@@ -69,6 +69,39 @@ Route::get('order-detail', [
 	'uses' => 'CartController@orderDetail'
 ]);
 
+// Carrito cotizador -------------
+Route::get('quote/cart/add/{product}',[
+    'as' => 'quote-cart-add',
+    'uses' => 'CartController@addQuoteCart'
+]);
+
+Route::get('quote/cart/show',[
+    'as' => 'quote-cart-show',
+    'uses' => 'CartController@showItemsQuoteCart'
+]);
+
+Route::get('quote/cart/delete/{product}',[
+    'as' => 'quote-cart-delete',
+    'uses' => 'CartController@deleteItemQuoteCart'
+]);
+
+Route::get('quote/cart/update/{product}/{quantity}',[
+    'as' => 'quote-cart-update',
+    'uses' => 'CartController@updateItemQuoteCart'
+]);
+
+Route::get('quote/cart/trash',[
+    'as' => 'quote-cart-trash',
+    'uses' => 'CartController@trashItemsQuoteCart'
+]);
+
+Route::get('quote/cart/order-detail',[
+    'middleware' => 'auth:user',
+   'as' => 'quote-order-detail',
+    'uses' => 'CartController@orderQuoteCartDetail'
+
+]);
+
 
 // Authentication routes...
 Route::get('auth/login', [

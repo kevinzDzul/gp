@@ -69,7 +69,7 @@
 
 			</div>
 			@else
-				<h3><span class="label label-warning">No hay productos en el carrito :(</span></h3>
+				<h3><span class="label label-warning">No hay productos en el carrito</span></h3>
 			@endif
 			<hr>
 			<p>
