@@ -25,6 +25,8 @@ class StoreController extends Controller
     public function show($slug)
     {
     	$product = Product::where('slug', $slug)->first();
+        $product->image = url(self::DEFAULT_FOLDER_IMAGE).'/'.$product->image;
+
     	//dd($product);
 
     	return view('store.show', compact('product'));
